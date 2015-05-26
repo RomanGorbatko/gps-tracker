@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>ExerciseTracker</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="https://cloud.github.com/downloads/jaubourg/jquery-jsonp/jquery.jsonp-2.4.0.min.js"></script>
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD6LcUmRQt-CJl8xHBFfdqv1xH1MXoo8EM&sensor=true"></script>
+        <script type="text/javascript" src="js/api.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <style>
+            html { height: 100% }
+            body { height: 100%; margin: 0; padding: 0 }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="home">
+            <div data-role="header">
+                <h1>Home</h1>
+                <div data-role="navbar">
+                    <ul>
+                    <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                        <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                        <li><a href="#map" data-transition="none" data-icon="arrow-r">Map</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div data-role="content">
+                <p>Welcome to the <em>ExerciseTracker</em> app. By clicking <em>Track Workout</em> you can record your workouts using the GPS feature on your phone. Learn how to build this app by reading <em>mobile.tutsplus.com</em>.</p>
+                <button id="home_network_button" data-icon="check">Internet Access Enabled</button>
+                <button id="home_clearstorage_button">Clear local storage</button>
+                <button id="home_seedgps_button">Load Seed GPS Data</button>
+            </div>
+        </div>
+
+        <div data-role="page" id="startTracking">
+            <div data-role="header">
+                <h1>Track Workout</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                        <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                        <li><a href="#map" data-transition="none" data-icon="arrow-r">Map</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div data-role="content"> 
+                <p id="startTracking_status"></p>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <label for="track_id">Set Route:</label>
+                    <input type="text" name="from" id="from" value="Киев, ул. Ярославская, 57"/>
+                    <input type="text" name="to" id="to" value="Киев, Героев Севастополя 31"/>
+                </div>
+                <button data-role="button" id="startTracking_start">Start Tracking</button>
+                <!-- <button data-role="button" id="startTracking_stop">Stop Tracking</button>  -->
+                <p id="startTracking_debug"></p>         
+            </div>
+        </div>
+
+        <div data-role="page" id="map">
+            <div data-role="header">
+                <h1>Map</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                        <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                        <li><a href="#map" data-transition="none" data-icon="arrow-r">Map</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div data-role="content"> 
+                <div style="width:100%;height:400px" id="map_canvas"></div>
+                <div id="info">
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <legend>Информация:</legend>
+                            <input type="checkbox" name="checkbox-1" id="traffic" class="custom" />
+                            <label for="traffic">Использовать трафик?</label>
+                        </fieldset>
+                    </div>
+                    <div id="grid">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            window.onerror = function(message, url, lineNumber) {
+                console.log("Error: "+message+" in "+url+" at line "+lineNumber);
+            };
+
+            document.addEventListener("deviceready", function() {
+                console.log('Event: deviceready');  
+                App.init();   
+            });
+    </script>
+    </body>
+</html>
